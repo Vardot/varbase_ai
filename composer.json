@@ -1,0 +1,51 @@
+{
+  "name": "drupal/varbase_ai",
+  "description": "Collection of provided and configured recipes for AI tools, to empower Varbase editorial teams with more advanced Artificial Intelligence (AI) options.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/varbase_ai",
+  "notification-url": "https://packages.drupal.org/8/downloads",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "Vardot",
+      "homepage": "https://www.drupal.org/vardot",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/varbase_ai",
+    "source": "http://cgit.drupalcode.org/varbase_ai"
+  },
+  "repositories": {
+    "drupal": {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    },
+    "assets": {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  },
+  "require": {
+    "composer/installers": "~2",
+    "oomphinc/composer-installers-extender": "~2",
+    "cweagans/composer-patches": "~1 || ~2",
+    "drupal/core": "~10",
+    "vardot/entity-definition-update-manager": "~1",
+    "vardot/module-installer-factory": "~1",
+    "drupal/openai": "~1",
+    "drupal/ai_interpolator": "~1",
+    "drupal/ai_interpolator_openai": "~1"
+  },
+  "extra": {
+    "installer-types": [
+      "bower-asset",
+      "npm-asset"
+    ],
+    "enable-patching": true,
+    "composer-exit-on-patch-failure": true,
+    "patches": { }
+  }
+}

@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Contains varbase_ai.install.
+ */
+
+use Drupal\Core\Recipe\Recipe;
+use Drupal\Core\Recipe\RecipeRunner;
+
+/**
+ * Implements hook_install().
+ */
+function varbase_ai_install() {
+
+  $default_recipe = Recipe::createFromDirectory(__DIR__ . '/recipes/default');
+  RecipeRunner::processRecipe($default_recipe);
+
+}

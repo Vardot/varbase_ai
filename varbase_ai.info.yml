@@ -1,0 +1,6 @@
+name: Varbase AI
+description: Collection of provided and configured recipes for AI tools, to empower Varbase editorial teams with more advanced Artificial Intelligence (AI) options.
+type: module
+package: Varbase
+core_version_requirement: ~10
+dependencies: { }

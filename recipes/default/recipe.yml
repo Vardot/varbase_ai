@@ -1,0 +1,9 @@
+name: Varbase AI - Default
+description: A recipe to manage default installed modules, configs and permissions.
+type: install
+install:
+  - openai
+  - openai_ckeditor
+  - openai_content
+  - ai_interpolator
+  - ai_interpolator_openai
