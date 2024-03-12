@@ -7,3 +7,17 @@ install:
   - openai_content
   - ai_interpolator
   - ai_interpolator_openai
+config:
+  actions:
+    user.role.site_admin:
+      grantPermissions:
+        - 'access openai content tools'
+        - 'use openai ckeditor'
+    user.role.content_admin:
+      grantPermissions:
+        - 'access openai content tools'
+        - 'use openai ckeditor'
+    user.role.editor:
+      grantPermissions:
+        - 'access openai content tools'
+        - 'use openai ckeditor'
