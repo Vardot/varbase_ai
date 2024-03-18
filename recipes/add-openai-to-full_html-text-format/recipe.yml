@@ -1,0 +1,21 @@
+name: Varbase AI - Add OpenAI to Rich Editor text format
+description: A recipe to manage default OpenAI button and plugin settings for the Rich Editor with CKEditor 5
+type: site
+config:
+  actions:
+    filter.format.full_html:
+      simple_config_update:
+        filters:
+          filter_html:
+            settings:
+              allowed_html: ''
+    editor.editor.full_html:
+      addButtonPluginIntoActiveToolbar:
+        button_name: openai
+        plugin_name: openai_ckeditor_openai
+        plugin_settings:
+          completion:
+            enabled: true
+            model: gpt-4
+            temperature: 0.2
+            max_tokens: 512

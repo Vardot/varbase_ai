@@ -1,0 +1,22 @@
+name: Varbase AI - Add OpenAI to Simple Editor text format
+description: A recipe to manage default OpenAI button and plugin settings for the Simple Editor with CKEditor 5
+type: site
+config:
+  actions:
+    filter.format.basic_html:
+      simple_config_update:
+        filters:
+          filter_html:
+            settings:
+              allowed_html: ''
+    editor.editor.basic_html:
+      addButtonPluginIntoActiveToolbar:
+        button_name: openai
+        button_index: 1
+        plugin_name: openai_ckeditor_openai
+        plugin_settings:
+          completion:
+            enabled: true
+            model: gpt-4
+            temperature: 0.2
+            max_tokens: 512
