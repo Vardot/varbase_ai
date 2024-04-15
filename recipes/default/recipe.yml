@@ -8,6 +8,12 @@ install:
   - ai_interpolator
   - ai_interpolator_openai
 config:
+  import:
+    openai: '*'
+    openai_ckeditor: '*'
+    openai_content: '*'
+    ai_interpolator: '*'
+    ai_interpolator_openai: '*'
   actions:
     user.role.site_admin:
       grantPermissions:

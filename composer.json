@@ -31,6 +31,8 @@
     "vardot/module-installer-factory": "~1",
     "drupal/openai": "~1",
     "drupal/ai_interpolator": "~1",
-    "drupal/ai_interpolator_openai": "~1"
+    "drupal/ai_interpolator_openai": "~1",
+    "vardot/add-openai-to-simple-editor": "~1",
+    "vardot/add-openai-to-rich-editor": "~1"
   }
 }
