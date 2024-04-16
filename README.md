@@ -12,6 +12,8 @@ Below are the recipes designed to integrate Varbase AI with optional functionali
 * [Add OpenAI to Rich Editor](https://github.com/Vardot/add-openai-to-rich-editor)
 
 > NOTE: [Setup Varbase AI](https://github.com/vardot/setup-varbase-ai) is the same as [**Default Varbase AI Recipe**](https://git.drupalcode.org/project/varbase\_ai/-/blob/1.0.x/recipes/default/recipe.yml?ref\_type=heads), But dose not need to enable the Varbase AI module.
+>
+> Run this recipe to activate Varbase AI, But without the need to enable the Varbase AI module.
 
 > #### Planned to add more **Varbase AI Recipes**
 
