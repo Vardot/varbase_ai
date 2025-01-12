@@ -2,28 +2,26 @@ name: Varbase AI - Default
 description: A recipe to manage default installed modules, configs and permissions.
 type: install
 install:
-  - openai
-  - openai_ckeditor
-  - openai_content
-  - ai_interpolator
-  - ai_interpolator_openai
+  - ai
+  - ai_provider_openai
+  - ai_image_alt_text
+  - ai_assistant_api
+  - ai_ckeditor
 config:
   import:
-    openai: '*'
-    openai_ckeditor: '*'
-    openai_content: '*'
-    ai_interpolator: '*'
-    ai_interpolator_openai: '*'
+    ai: '*'
+    ai_image_alt_text: '*'
+    ai_ckeditor: '*'
   actions:
     user.role.site_admin:
       grantPermissions:
-        - 'access openai content tools'
-        - 'use openai ckeditor'
+        - 'generate ai alt tags'
+        - 'use ai ckeditor'
     user.role.content_admin:
       grantPermissions:
-        - 'access openai content tools'
-        - 'use openai ckeditor'
+        - 'generate ai alt tags'
+        - 'use ai ckeditor'
     user.role.editor:
       grantPermissions:
-        - 'access openai content tools'
-        - 'use openai ckeditor'
+        - 'generate ai alt tags'
+        - 'use ai ckeditor'
