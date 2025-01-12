@@ -32,6 +32,6 @@
     "drupal/ai": "~1",
     "drupal/ai_image_alt_text": "~1",
     "drupal/ai_provider_openai": "~1",
-    "vardot/setup-varbase-ai": "~2"
+    "vardot/setup-varbase-ai": "~2 || 2.0.x-dev"
   }
 }
