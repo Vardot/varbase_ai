@@ -5,12 +5,13 @@ install:
   - ai
   - ai_provider_openai
   - ai_image_alt_text
-  - ai_assistant_api
+  - ai_automators
   - ai_ckeditor
 config:
   import:
     ai: '*'
     ai_image_alt_text: '*'
+    ai_automators: '*'
     ai_ckeditor: '*'
   actions:
     user.role.site_admin:
