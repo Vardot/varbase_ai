@@ -3,4 +3,6 @@ description: Provides a collection of recipes for AI tools. Enhances editorial t
 type: module
 package: Varbase
 core_version_requirement: ~10.4.0 || ~11.1.0
-dependencies: { }
+dependencies:
+  - key:key
+  - ai:ai
