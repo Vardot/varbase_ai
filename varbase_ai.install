@@ -13,7 +13,8 @@ use Drupal\Core\Recipe\RecipeRunner;
  */
 function varbase_ai_install() {
 
-  $default_recipe = Recipe::createFromDirectory(__DIR__ . '/recipes/default');
-  RecipeRunner::processRecipe($default_recipe);
+  // Apply the Default Varbase AI recipe.
+  $varbase_ai_default_recipe = Recipe::createFromDirectory(DRUPAL_ROOT . '/recipes/contrib/varbase_ai_default');
+  RecipeRunner::processRecipe($varbase_ai_default_recipe);
 
 }

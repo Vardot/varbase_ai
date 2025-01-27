@@ -1,21 +1,8 @@
 # Varbase AI
 
-Provides a collection of recipes for AI tools. Enhances editorial team's capabilities with a range of advanced Artificial Intelligence (AI) options.
+Provides a collection of recipes for AI tools, empowering editorial teams with a wide range of advanced Artificial Intelligence (AI) capabilities.
 
-## **Optional Varbase AI Recipes**
-
-When the **Varbase AI** module is installed, the site is initially equipped with the [**Default Varbase AI Recipe**](https://git.drupalcode.org/project/varbase\_ai/-/blob/1.0.x/recipes/default/recipe.yml?ref\_type=heads). However, developers can extend its capabilities by integrating optional recipes.
-
-Below are the recipes designed to integrate Varbase AI with optional functionalities:
-* [Setup Varbase AI](https://github.com/vardot/setup-varbase-ai)
-* [Add OpenAI to Simple Editor](https://github.com/Vardot/add-openai-to-simple-editor)
-* [Add OpenAI to Rich Editor](https://github.com/Vardot/add-openai-to-rich-editor)
-
-> NOTE: [Setup Varbase AI](https://github.com/vardot/setup-varbase-ai) is the same as [**Default Varbase AI Recipe**](https://git.drupalcode.org/project/varbase\_ai/-/blob/1.0.x/recipes/default/recipe.yml?ref\_type=heads), But dose not need to enable the Varbase AI module.
->
-> Run this recipe to activate Varbase AI, But without the need to enable the Varbase AI module.
-
-> #### Planned to add more **Varbase AI Recipes**
+Enables seamless management of custom AI integrations for Varbase and supports updatable AI workflows.
 
 
 ## Use With [Varbase](https://www.drupal.org/project/varbase) Distribution:

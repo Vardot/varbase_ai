@@ -1,6 +1,6 @@
 {
   "name": "drupal/varbase_ai",
-  "description": "Provides a collection of recipes for AI tools. Enhances editorial team's capabilities with a range of advanced Artificial Intelligence (AI) options.",
+  "description": "Provides a collection of recipes for AI tools, empowering editorial teams with a wide range of advanced Artificial Intelligence (AI) capabilities. Enables seamless management of custom AI integrations for Varbase and supports updatable AI workflows.",
   "type": "drupal-module",
   "homepage": "https://www.drupal.org/project/varbase_ai",
   "notification-url": "https://packages.drupal.org/8/downloads",
@@ -26,14 +26,17 @@
   },
   "require": {
     "drupal/core": "~10.4.0 || ~11.1.0",
-    "vardot/varbase-patches": "~9 || ~10 || ~11",
-    "vardot/entity-definition-update-manager": "~1",
-    "vardot/module-installer-factory": "~1",
+    "vardot/varbase-patches": "~9 || ~10",
+    "drupal/ai": "~1",
+    "drupal/ai_image_alt_text": "~1",
+    "drupal/ai_provider_openai": "~1",
     "drupal/openai": "~1",
     "drupal/ai_interpolator": "~1",
     "drupal/ai_interpolator_openai": "~1",
-    "vardot/setup-varbase-ai": "~1",
-    "vardot/add-openai-to-simple-editor": "~1",
-    "vardot/add-openai-to-rich-editor": "~1"
+    "drupal/varbase_ai_default": "~1.0.0 || 1.0.x-dev",
+    "drupal/varbase_ai_image_alt": "~1.0.0 || 1.0.x-dev",
+    "drupal/varbase_ai_editor_assistant": "~1.0.0 || 1.0.x-dev",
+    "drupal/varbase_ai_taxonomy_tagging": "~1.0.0 || 1.0.x-dev",
+    "drupal/varbase_ai_agents": "~1.0.0 || 1.0.x-dev"
   }
 }
