@@ -1,7 +1,7 @@
 {
   "name": "varbase_ai",
   "private": true,
-  "description": "Provides a collection of recipes for AI tools. Enhances editorial team's capabilities with a range of advanced Artificial Intelligence (AI) options.",
+  "description": "Provides a collection of recipes for AI tools, empowering editorial teams with a wide range of advanced Artificial Intelligence (AI) capabilities. Enables seamless management of custom AI integrations for Varbase and supports updatable AI workflows.",
   "license": "GPL-2.0",
   "engines": {
     "yarn": ">= 1.6",
