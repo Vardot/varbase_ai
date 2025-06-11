@@ -25,7 +25,7 @@
     }
   },
   "require": {
-    "drupal/core": "~10.4.0 || ~11.1.0",
+    "drupal/core": ">=10.4 || >=11.1",
     "vardot/varbase-patches": "~9 || ~10",
     "drupal/ai": "~1",
     "drupal/ai_image_alt_text": "~1",
