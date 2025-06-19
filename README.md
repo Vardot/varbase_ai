@@ -8,7 +8,7 @@ Enables seamless management of custom AI integrations for Varbase and supports u
 ## Use With [Varbase](https://www.drupal.org/project/varbase) Distribution:
 This module is best used with [Varbase](https://www.drupal.org/project/varbase) distribution.
 
-Can be installed with any Drupal 10 site.
+Can be installed with any Drupal 10/11 site.
  Even if installed with the Minimal or Standard profile.
 However, using it with [Varbase](https://www.drupal.org/project/varbase) gives you way much more cool stuff!
 

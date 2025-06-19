@@ -2,5 +2,5 @@ name: Varbase AI
 description: Provides a collection of recipes for AI tools, empowering editorial teams with a wide range of advanced Artificial Intelligence (AI) capabilities. Enables seamless management of custom AI integrations for Varbase and supports updatable AI workflows.
 type: module
 package: Varbase
-core_version_requirement: ">=10.4 || >=11.1"
+core_version_requirement: "~10.5.0 || ~11.2.0"
 dependencies: { }
