@@ -17,4 +17,12 @@ function varbase_ai_install() {
   $varbase_ai_default_recipe = Recipe::createFromDirectory(DRUPAL_ROOT . '/recipes/contrib/varbase_ai_default');
   RecipeRunner::processRecipe($varbase_ai_default_recipe);
 
+  // Apply the Varbase AI Image Alt recipe.
+  $varbase_ai_image_alt_recipe = Recipe::createFromDirectory(DRUPAL_ROOT . '/recipes/contrib/varbase_ai_image_alt');
+  RecipeRunner::processRecipe($varbase_ai_image_alt_recipe);
+
+  // Apply the Varbase AI Editor Assistant recipe.
+  $varbase_ai_editor_assistant_recipe = Recipe::createFromDirectory(DRUPAL_ROOT . '/recipes/contrib/varbase_ai_editor_assistant');
+  RecipeRunner::processRecipe($varbase_ai_editor_assistant_recipe);
+
 }
