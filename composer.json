@@ -19,6 +19,8 @@
   "require": {
     "drupal/core": "~10.5.0 || ~11.2.0",
     "vardot/varbase-patches": "~9 || ~10",
+    "drupal/ai": "~2",
+    "drupal/eca": "~3",
     "drupal/varbase_ai_default": "~1.0.0",
     "drupal/varbase_ai_image_alt": "~1.0.0",
     "drupal/varbase_ai_editor_assistant": "~1.0.0",
