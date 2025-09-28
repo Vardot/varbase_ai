@@ -13,7 +13,7 @@ use Drupal\Core\Recipe\RecipeRunner;
  */
 function varbase_ai_install() {
 
-  // Intsall default AI modules.
+  // Install default AI modules.
   $default_install_recipe = Recipe::createFromDirectory(__DIR__ . '/recipes/default');
   RecipeRunner::processRecipe($default_install_recipe);
 
