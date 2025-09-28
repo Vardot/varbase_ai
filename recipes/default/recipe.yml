@@ -1,0 +1,7 @@
+name: Varbase AI Default
+description: install default AI modules.
+type: install
+install:
+  - ai
+  - eca
+  - ai_integration_eca
