@@ -25,6 +25,9 @@ function varbase_ai_install() {
   $varbase_ai_image_alt_recipe = Recipe::createFromDirectory(DRUPAL_ROOT . '/recipes/contrib/varbase_ai_image_alt');
   RecipeRunner::processRecipe($varbase_ai_image_alt_recipe);
 
+  // Ensure media_edit_media_modal configuration exists BEFORE processing recipes.
+  varbase_ai__fix_editor_media_modal_config();
+
   // Apply the Varbase AI Editor Assistant recipe.
   $varbase_ai_editor_assistant_string = file_get_contents(DRUPAL_ROOT . '/recipes/contrib/varbase_ai_editor_assistant/recipe.yml');
   $varbase_ai_editor_assistant_string = str_replace("\${ckeditor_machine_name}", "full_html", $varbase_ai_editor_assistant_string);
@@ -37,4 +40,36 @@ function varbase_ai_install() {
   $varbase_ai_editor_assistant_recipe_full_html = Recipe::createFromDirectory($dir);
   RecipeRunner::processRecipe($varbase_ai_editor_assistant_recipe_full_html);
 
+}
+
+/**
+ * Helper function to ensure media_edit_media_modal configuration exists.
+ */
+function varbase_ai__fix_editor_media_modal_config() {
+  $config_factory = \Drupal::configFactory();
+  $editors = ['basic_html', 'full_html'];
+
+  $default_config = [
+    'editMediaModal' => [
+      'dialogSettings' => [
+        'height' => '80%',
+      ],
+      'extras' => [
+        'skipAccessCheck' => FALSE,
+      ],
+      'editMediaModalForms' => [],
+    ],
+  ];
+
+  foreach ($editors as $editor_id) {
+    $config = $config_factory->getEditable('editor.editor.' . $editor_id);
+    if (!$config->isNew()) {
+      $settings = $config->get('settings');
+      if (!isset($settings['plugins']['media_edit_media_modal']) || empty($settings['plugins']['media_edit_media_modal'])) {
+        $settings['plugins']['media_edit_media_modal'] = $default_config;
+        $config->set('settings', $settings)->save();
+        \Drupal::logger('varbase_ai')->info('Added missing media_edit_media_modal configuration to @editor editor.', ['@editor' => $editor_id]);
+      }
+    }
+  }
 }
