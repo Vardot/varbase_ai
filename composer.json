@@ -17,7 +17,7 @@
     "source": "http://cgit.drupalcode.org/varbase_ai"
   },
   "require": {
-    "drupal/core": "~10.5.0 || ~11.2.0",
+    "drupal/core": "~10.6.0 || ~11.3.0",
     "vardot/varbase-patches": "~9 || ~10",
     "drupal/ai": "~1.2.0",
     "drupal/eca": "~2 || ~3",
