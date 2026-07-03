@@ -1,31 +1,32 @@
 {
-  "name": "drupal/varbase_ai",
-  "description": "Provides a collection of recipes for AI tools, empowering editorial teams with a wide range of advanced Artificial Intelligence (AI) capabilities. Enables seamless management of custom AI integrations for Varbase and supports updatable AI workflows.",
-  "type": "drupal-module",
-  "homepage": "https://www.drupal.org/project/varbase_ai",
-  "notification-url": "https://packages.drupal.org/8/downloads",
-  "license": "GPL-2.0-or-later",
-  "authors": [
-    {
-      "name": "Vardot",
-      "homepage": "https://www.drupal.org/vardot",
-      "role": "Maintainer"
+    "name": "drupal/varbase_ai",
+    "description": "Provides a collection of recipes for AI tools, empowering editorial teams with a wide range of advanced Artificial Intelligence (AI) capabilities. Enables seamless management of custom AI integrations for Varbase and supports updatable AI workflows.",
+    "type": "drupal-module",
+    "homepage": "https://www.drupal.org/project/varbase_ai",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Vardot",
+            "homepage": "https://www.drupal.org/vardot",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/varbase_ai",
+        "source": "http://cgit.drupalcode.org/varbase_ai"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "drupal/core": "~11.4.0",
+        "vardot/varbase-patches": "~10.1.0",
+        "drupal/ai": "~1.2.0",
+        "drupal/eca": "~2 || ~3",
+        "drupal/ai_integration_eca": "~1",
+        "drupal/varbase_ai_default": "~1.0.0",
+        "drupal/varbase_ai_image_alt": "~1.0.0",
+        "drupal/varbase_ai_editor_assistant": "~1.0.0",
+        "drupal/varbase_ai_taxonomy_tagging": "~1.0.0",
+        "drupal/varbase_ai_agents": "~1.0.0"
     }
-  ],
-  "support": {
-    "issues": "https://www.drupal.org/project/issues/varbase_ai",
-    "source": "http://cgit.drupalcode.org/varbase_ai"
-  },
-  "require": {
-    "drupal/core": "~10.6.0 || ~11.3.0",
-    "vardot/varbase-patches": "~9 || ~10",
-    "drupal/ai": "~1.2.0",
-    "drupal/eca": "~2 || ~3",
-    "drupal/ai_integration_eca": "~1",
-    "drupal/varbase_ai_default": "~1.0.0",
-    "drupal/varbase_ai_image_alt": "~1.0.0",
-    "drupal/varbase_ai_editor_assistant": "~1.0.0",
-    "drupal/varbase_ai_taxonomy_tagging": "~1.0.0",
-    "drupal/varbase_ai_agents": "~1.0.0"
-  }
 }

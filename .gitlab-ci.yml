@@ -1,3 +1,21 @@
+################################################################################
+# GitLab CI for the Varbase AI module (2.0.x line - Drupal ~11.4).
+#
+# Two halves:
+#   1. The standard Drupal CI validation jobs (composer, composer-lint, cspell,
+#      eslint, phpcs, phpstan) provided by the drupalci templates. Every
+#      validate job gates strictly (allow_failure:false) on Drupal ~11.4.
+#   2. A webship-js BDD browser-test job (Playwright + Cucumber-js) that runs
+#      the tests/features/drupal/** suite against a freshly installed Drupal
+#      Standard site provisioned with the AI Core + ECA + AI Integration - ECA
+#      modules (the payload of the Varbase AI default recipe), so the module's
+#      AI configuration section, the AI settings + provider routes, and the
+#      AI-settings access permission matrix are exercised. See the
+#      before_script note for why the full varbase_ai module (with its AI
+#      sub-recipes) is not enabled in CI (unreleased sibling / editor + media
+#      config incompatibilities on the drupal.org Composer facade).
+################################################################################
+
 include:
   - project: $_GITLAB_TEMPLATES_REPO
     ref: $_GITLAB_TEMPLATES_REF
@@ -5,34 +23,148 @@ include:
       - "/includes/include.drupalci.main.yml"
       - "/includes/include.drupalci.variables.yml"
       - "/includes/include.drupalci.workflows.yml"
-composer:
-  variables:
-    _LENIENT_ALLOW_LIST: "select2, styleguide"
-  script:
-    - composer config minimum-stability dev
-    - composer config repositories.drupal composer https://packages.drupal.org/8
-    - composer config --no-plugins allow-plugins.composer/installers true
-    - composer config --no-plugins allow-plugins.cweagans/composer-patches true
-    - composer config --no-plugins allow-plugins.oomphinc/composer-installers-extender true
-    - composer config --no-plugins allow-plugins.phpstan/extension-installer true
-    - composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
-    - composer require --no-update cweagans/composer-patches:~1
-    - composer install -vvv
+
+variables:
+  # The 2.0.x branch targets Drupal core 11.4 only. Pin the core version and
+  # ignore the project's info.yml core_version_requirement when resolving it.
+  DRUPAL_CORE: "11.4.0"
+  IGNORE_PROJECT_DRUPAL_CORE_VERSION: "1"
+  # Make every drupalci validate job blocking (a few default to
+  # allow_failure:true). Combined with the per-job allow_failure:false overrides
+  # below, the whole pipeline gates strictly.
+  _ALL_VALIDATE_ALLOW_FAILURE: "0"
+  COMPOSER_FLAGS: "--no-strict-lock"
+  COMPOSER_MEMORY_LIMIT: "-1"
+  # No yarn.lock is relied upon in CI; Yarn 4 defaults to immutable installs and
+  # would refuse to create one. Allow lockfile creation in CI for every job.
+  YARN_ENABLE_IMMUTABLE_INSTALLS: "false"
+
+# = Validate stage (all blocking) =
+# Force EVERY drupalci validate job that runs for this module to gate. The
+# module ships no CSS/JS of its own, so drupalci does not add a stylelint job;
+# the overrides below cover the jobs that do run.
 composer-lint:
-  allow_failure: true
+  allow_failure: false
 cspell:
-  stage: validate
-  image: node:18
-  before_script:
-    - npm install -g cspell
-  script:
-    - cspell "**/*.{php,module,inc,install,test,profile,theme,js,css,md,yml,txt}" --no-progress || true
-  allow_failure: true
+  allow_failure: false
 eslint:
-  allow_failure: true
+  allow_failure: false
 phpcs:
-  allow_failure: true
+  allow_failure: false
 phpstan:
-  allow_failure: true
-phpunit:
-  allow_failure: true
+  allow_failure: false
+
+# = Reusable before_script fragments (via !reference) =
+.fragments:
+  web_db: &web_db
+    - mkdir -pv $CI_PROJECT_DIR/$_WEB_ROOT/sites/default/files
+    - mkdir -pv $CI_PROJECT_DIR/$_WEB_ROOT/sites/simpletest
+    - chmod -R 777 $CI_PROJECT_DIR/$_WEB_ROOT/sites/default/files
+    - chmod -R 777 $CI_PROJECT_DIR/$_WEB_ROOT/sites/simpletest
+    - rm -rf /var/www/html && ln -s $CI_PROJECT_DIR/$_WEB_ROOT /var/www/html
+    - chown -R www-data:www-data $CI_PROJECT_DIR
+    - service apache2 start
+    - export SIMPLETEST_DB=mysql://$MYSQL_USER:$MYSQL_PASSWORD@database/$MYSQL_DATABASE
+  node_playwright: &node_playwright
+    - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+    - apt-get install -y nodejs
+    - node --version && npm --version
+    - 'test -f .yarnrc.yml || echo "nodeLinker: node-modules" > .yarnrc.yml'
+    # Back up cucumber.js - webship-js's postinstall can clobber it under yarn 4.
+    - cp cucumber.js .cucumber.js.bak
+    - corepack enable
+    - yarn install
+    - cp .cucumber.js.bak cucumber.js && rm .cucumber.js.bak
+    - ./node_modules/.bin/playwright install --with-deps chromium
+
+# = webship-js BDD - Drupal Standard profile + AI modules provisioning =
+webship-js-test:
+  extends: .testing-job-base
+  needs: [composer]
+  # The AI modules install is quick, but keep a generous ceiling.
+  timeout: 2h
+  # Only the database service is needed. Playwright bundles its own Chromium,
+  # so Selenium and chromedriver are not required.
+  services:
+    - name: $_CONFIG_DOCKERHUB_ROOT/$_TARGET_DB_TYPE-$_TARGET_DB_VERSION:$_TARGET_DB_IMAGE_TAG
+      alias: database
+  variables:
+    LAUNCH_URL: "http://localhost"
+    FORCE_COLOR: "1"
+  artifacts:
+    when: always
+    paths:
+      - tests/reports/
+      - tests/screenshots/
+      - tests/videos/
+    expire_in: 7 days
+  before_script:
+    - !reference [.fragments, web_db]
+    - git config --global --add safe.directory "$CI_PROJECT_DIR" || true
+    - cd $CI_PROJECT_DIR
+    # Provision a Drupal Standard site and enable the AI Core, ECA and AI
+    # Integration - ECA modules - the exact module payload of the Varbase AI
+    # default recipe (recipes/default: ai + eca + ai_integration_eca) - then
+    # grant the AI administration permissions to the Varbase editorial
+    # site_admin role.
+    #
+    # NOTE: this deliberately does NOT enable the full varbase_ai module. Doing
+    # so would run varbase_ai's hook_install(), which applies the AI
+    # sub-recipes (varbase_ai_default / varbase_ai_image_alt /
+    # varbase_ai_editor_assistant) that reconfigure the CKEditor 5 editors and
+    # media-embed modal - config that requires the whole varbase_editor /
+    # varbase_media stack, whose 10.1.x compatibility fixes are still
+    # unreleased on the drupal.org Composer facade. So this browser job installs
+    # the AI module payload on a clean Standard site, keeping the job well
+    # inside the CI runner time budget while still exercising the AI
+    # configuration section, the AI settings + provider routes and the
+    # AI-settings access permission matrix.
+    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT site:install standard
+        --db-url=$SIMPLETEST_DB --account-name=webmaster --account-pass=dD.123123ddd
+        --site-name="Varbase AI Test" -y
+    # Create the Varbase editorial roles used by the permission matrix.
+    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT role:create editor 'Editor' || true
+    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT role:create content_admin 'Content admin' || true
+    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT role:create site_admin 'Site admin' || true
+    # Enable the AI recipe payload modules (ai pulls in key; ai_integration_eca
+    # depends on ai + eca + file).
+    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT pm:install ai eca ai_integration_eca -y
+    # Grant the AI administration permissions to the Varbase site_admin role.
+    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT role:perm:add site_admin 'administer ai' || true
+    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT role:perm:add site_admin 'administer ai providers' || true
+    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT cache:rebuild
+    # Test users for the AI-settings access matrix (aiuser gets the site_admin
+    # role, which was granted `administer ai`).
+    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:create normaluser --mail="normaluser@example.test" --password="dD.123123ddd" || true
+    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:create aiuser --mail="aiuser@example.test" --password="dD.123123ddd" || true
+    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:role:add site_admin aiuser || true
+    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT cache:rebuild
+    - !reference [.fragments, node_playwright]
+  script:
+    # cucumber.js loads only tests/features/drupal/**. Disable webship-js's auto
+    # HTML hook and run generate-reports explicitly so HTML + PDF land next to
+    # the JSON in tests/reports/.
+    - WEBSHIP_REPORT_DISABLE=1 ./node_modules/.bin/cucumber-js --config cucumber.js --tags "not @wip"
+    - node ./node_modules/webship-js/bin/generate-reports.js
+        --json tests/reports/cucumber_report.json
+        --out  tests/reports/cucumber_report.html
+        --format all
+        --pdf-out tests/reports/cucumber_report.pdf
+  allow_failure: false
+
+# Allow the Varbase stack Composer plugins in the CI build (allow-plugins lives
+# in varbase_project, not modules).
+composer:
+  before_script:
+    - composer config --no-plugins allow-plugins.symfony/runtime true || true
+    - composer config --no-plugins allow-plugins.composer/installers true || true
+    - composer config --no-plugins allow-plugins.cweagans/composer-patches true || true
+    - composer config --no-plugins allow-plugins.oomphinc/composer-installers-extender true || true
+    - composer config --no-plugins allow-plugins.drupal/core-composer-scaffold true || true
+    - composer config --no-plugins allow-plugins.drupal/core-project-message true || true
+    - composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true || true
+    - composer config --no-plugins allow-plugins.phpstan/extension-installer true || true
+    - composer config --no-plugins allow-plugins.php-http/discovery true || true
+    - composer config --no-plugins allow-plugins.tbachert/spi true || true
+    - composer config --no-plugins allow-plugins.vardot/varbase-patches true || true
+    - composer require --no-update vardot/varbase-patches:~10.1.0

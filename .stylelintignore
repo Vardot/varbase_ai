@@ -1,0 +1,16 @@
+node_modules/**/*.css
+vendor/**/*.css
+**/*.min.css
+**/fonts/**/*.css
+tests/*
+config/**/*.yml
+content/**
+*.yml
+.*
+*.png
+*.svg
+*.ico
+*.json
+*.install
+*.module
+*.lock

@@ -1,5 +1,22 @@
-# Ignore node modules
-node_modules
-/*/node_modules
+# Yarn
 .yarn/
-.yarn/install-state.gz
+node_modules/
+yarn-error.log
+.pnp*
+
+# Composer
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# gitlab-ci-local runner artifacts
+.gitlab-ci-local/
