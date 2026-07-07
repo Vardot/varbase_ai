@@ -19,10 +19,10 @@
     "prefer-stable": true,
     "require": {
         "drupal/core": "~11.4.0",
-        "vardot/varbase-patches": "~10.1.0",
         "drupal/ai": "~1.2.0",
         "drupal/eca": "~2 || ~3",
         "drupal/ai_integration_eca": "~1",
+        "drupal/varbase_recipes": "~1",
         "drupal/varbase_ai_default": "~1.0.0",
         "drupal/varbase_ai_image_alt": "~1.0.0",
         "drupal/varbase_ai_editor_assistant": "~1.0.0",

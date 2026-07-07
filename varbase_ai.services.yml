@@ -1,0 +1,4 @@
+services:
+  logger.channel.varbase_ai:
+    parent: logger.channel_base
+    arguments: ['varbase_ai']
