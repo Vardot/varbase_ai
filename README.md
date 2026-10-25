@@ -4,6 +4,16 @@ Provides a collection of recipes for AI tools, empowering editorial teams with a
 
 Enables seamless management of custom AI integrations for Varbase and supports updatable AI workflows.
 
+## Documentation
+
+Read the [Varbase AI Recipes documentation](https://docs.varbase.vardot.com/developers/understanding-varbase/varbase-ai-recipes) on the Varbase docs site.
+
+## Installation
+
+```
+composer require drupal/varbase_ai:~2
+drush en varbase_ai -y
+```
 
 ## Use With [Varbase](https://www.drupal.org/project/varbase) Distribution:
 This module is best used with [Varbase](https://www.drupal.org/project/varbase) distribution.
@@ -11,9 +21,6 @@ This module is best used with [Varbase](https://www.drupal.org/project/varbase) 
 Can be installed with any Drupal 10/11 site.
  Even if installed with the Minimal or Standard profile.
 However, using it with [Varbase](https://www.drupal.org/project/varbase) gives you way much more cool stuff!
-
-## [Varbase documentation](https://docs.varbase.vardot.com/dev-docs/understanding-varbase/optional-components/varbase-api)
-Check out Varbase documentation for more details.
 
 Join Our Slack Team for Feedback and Support
 http://varbase.slack.com
