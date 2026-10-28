@@ -38,6 +38,7 @@ variables:
   # No yarn.lock is relied upon in CI; Yarn 4 defaults to immutable installs and
   # would refuse to create one. Allow lockfile creation in CI for every job.
   YARN_ENABLE_IMMUTABLE_INSTALLS: "false"
+  DRUPAL_CMS_TELEMETRY: "0"
 
 # = Validate stage (all blocking) =
 # Force EVERY drupalci validate job that runs for this module to gate. The
