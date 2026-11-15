@@ -6,8 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.0.15] - 2026-11-15
 ### Fixed
-- Require a drupal/ai release without open security advisories, `^1.5.2` ([#3638362](https://www.drupal.org/i/3638362)).
+- Require a drupal/ai release without open security advisories, `^1.5.2` ([#3638362](https://www.drupal.org/i/3638362)). Existing sites move to drupal/ai 1.5.x and should run the database updates.
 
 ## [2.0.14] - 2026-11-15
 ### Changed
@@ -19,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Move the documentation to docs.varbase.vardot.com ([#3633013](https://www.drupal.org/i/3633013)).
 - Disable Drupal CMS telemetry in CI ([#3633842](https://www.drupal.org/i/3633842)).
 
-[Unreleased]: https://git.drupalcode.org/project/varbase_ai/-/compare/2.0.14...2.0.x
+[Unreleased]: https://git.drupalcode.org/project/varbase_ai/-/compare/2.0.15...2.0.x
+[2.0.15]: https://git.drupalcode.org/project/varbase_ai/-/compare/2.0.14...2.0.15
 [2.0.14]: https://git.drupalcode.org/project/varbase_ai/-/compare/2.0.13...2.0.14
 [2.0.13]: https://git.drupalcode.org/project/varbase_ai/-/compare/2.0.12...2.0.13
