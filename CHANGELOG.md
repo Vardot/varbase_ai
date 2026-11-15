@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Require a drupal/ai release without open security advisories, `^1.5.2` ([#3638362](https://www.drupal.org/i/3638362)).
 
 ## [2.0.14] - 2026-11-15
 ### Changed

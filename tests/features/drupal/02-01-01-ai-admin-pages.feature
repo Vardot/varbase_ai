@@ -12,8 +12,8 @@ Feature: Varbase AI - administration pages
 
   Scenario: The AI settings overview page loads
     When I go to "/admin/config/ai"
-    Then I should see "AI Default Settings"
-    And I should see "Provider Settings"
+    Then I should see "Default Models for AI Operations"
+    And I should see "AI Platform Providers"
 
   Scenario: The AI Core module is reported as enabled
     When I go to "/admin/reports/status"

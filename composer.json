@@ -19,7 +19,7 @@
     "prefer-stable": true,
     "require": {
         "drupal/core": "~11.4.0",
-        "drupal/ai": "~1.2.0",
+        "drupal/ai": "^1.5.2",
         "drupal/eca": "~2 || ~3",
         "drupal/ai_integration_eca": "~1",
         "drupal/varbase_recipes": "~1",
