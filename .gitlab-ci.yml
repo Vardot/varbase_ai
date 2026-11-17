@@ -39,6 +39,8 @@ variables:
   # would refuse to create one. Allow lockfile creation in CI for every job.
   YARN_ENABLE_IMMUTABLE_INSTALLS: "false"
   DRUPAL_CMS_TELEMETRY: "0"
+  # PHP 8.5 for the drupalci job images (the template default is PHP 8.3).
+  _TARGET_PHP: "8.5"
 
 # = Validate stage (all blocking) =
 # Force EVERY drupalci validate job that runs for this module to gate. The
